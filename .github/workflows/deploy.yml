@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js and npm
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Snyk vulnerability scan
+      run: npx snyk test
+
+    - name: Run SonarQube code analysis
+      run: |
+        # Execute SonarQube Scanner command here
+        # Example: sonar-scanner
+
+    - name: Set permissions for README
+      run: chmod 644 README.md
